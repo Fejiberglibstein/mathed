@@ -1,0 +1,134 @@
+\documentclass[10pt, letterpaper]{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+
+\usepackage{mathrsfs}  % For cursive L
+
+\title{Iteration of Functions}
+\author{emeryllium, LooserRIP, Fejiberglibstein}
+\date{February 2024}
+
+\input{macros} % import macros to use
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    Defining distinct notation for and finding generalizations of the iterations of certain functions.
+\end{abstract}
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+Functions can be "iterated" by plugging them into themselves. For example, $f(x)$ iterated is $f(f(x))$. This definition can be extended to find the Iterator of a function, which denotes how many times that function is iterated.
+
+\section{Notation}
+An Iterator is a generalized equation for iterating a function $n$ times. An Iteration is a solution to an iterator given specific $x$ and $n$ values.
+
+\subsection{$\iterator{}$ notation}
+In L notation, Iterators are notated as
+    \footnote{Iterators can be notated with or without brackets around the function. Standard procedure is to use brackets if the expression contains multiple terms. If no $n$ value is written, assume $n=2$.}
+
+$$ \iterator{n} f(x) lx$$
+where $n$ is the iteration variable, $f(x)$ is the function to iterate, and $rx$ is the variable with respect to which you iterate. For example, $\mathscr{L}^n [2x+b] rx$
+iterates with respect to $x$, not $b$, so $\mathscr{L}^3 [2x+b] rx$ would evaluate to $8x+7b$.
+
+\subsubsection{Iterations}
+Iterations are notated as
+$$\mathscr{L}^n_a f(x) rx$$
+where $a$ is the value at which to evaluate the Iterator. For example, $\mathscr{L}^3_0 [2x+b] rx$ evaluates to $7b$.
+
+\subsubsection{At infinity}
+Some Iterators or Iterations can be evaluated with an $n$ value of infinity. Ex:
+$$\mathscr{L}^\infty [\frac{1}{2}x - 1] rx = -2$$
+
+\subsection{Shorthand}
+For the sake of brevity, Iterators of the function $f(x)$ may be notated as
+$$f(x)[n]$$ 
+where $n$ is the number of iterations. For example, $f(x)[3]$ evaluates to $f(f(f(x)))$. $f(x)$ can be replaced with an expression if the expression contains only one variable. Ex:
+$$(2x-1)[3] = 8x-7$$
+This notation does not extend to Iterations of functions.
+
+\section{Rules of iteration}
+ignore this for now until we find some actually useful rules
+$$\mathscr{L}^{n_1}[\mathscr{L}^{n_2} f(x) rx] rx = \mathscr{L}^{n_1n_2} f(x) rx$$
+$$f(f(x)[n_1])[n_2] = f(x)[n_1+n_2]$$
+
+\section{Trivial generalizations}
+Any function composed of one or two adjacent hyperoperations\footnote{See https://en.wikipedia.org/wiki/Hyperoperation.} (Ex. Addition and Multiplication) can be solved trivially.
+
+\subsection{$x$}
+In this function, every value {$x$} we plug in, we'll get {$x$} back. so we see that no matter how many iterations we do, we'll keep the same variable.
+\\This draws us to the conclusion that 
+$$\mathscr{L}^n [x] rx = x$$
+
+\subsection{$x+k$}
+Perhaps the simplest actual function, x+k is pretty simple to work out, let's imagine k = 2.
+\\
+n=1 (the original equation), would be {$(x+2)$}
+\\
+n=2 (the first iteration) would be {$(x+2)+2$}, which is {$x+4$}
+\\
+n=3 (the second iteration) would be {$((x+2)+2)+2$}, which is {$x+6$}
+\\
+\\
+and quickly we already got the pattern, $\mathscr{L}^n [x+2] rx = x+2n$.
+\\
+substituting 2 for k, we'll get
+$$\mathscr{L}^n [x+k] rx = x+kn$$
+
+\subsection{$bx+k$}
+Let's go one step further and generalize {$bx+k$}.
+\\This time we'll do this without substitution, to see the variables more clearly.
+\\n=1 would give us the original equation, {$bx+k$}
+\\n=2, we plug {$bx+k$} inside itself and get {$b(bx+k)+k$} which simplifies to {$xb^{2}+kb+k$}
+\\n=3, we repeat this and get {$b(xb^{2}+kb+k)+k$} which simplifies to {$xb^{3} + kb^{2} + kb + k$}
+\\We can now notice the pattern. for any value {$n$}, we add {$xb^{n}$} and a descending sum from n-1 to 0 of {$kb^{r}$}
+\\All together this comes to $$xb^{n}+\sum_{r=0}^{n-1} kb^{r}$$ % try not to use r as an iteration variable bc of the rx thing ok ty bbg
+\\Which simplifies to
+$$\mathscr{L}^n [bx+k] rx = \frac{k(b^{n}-1)}{b-1}+b^{n}x$$
+
+\subsection{$bx^k$}
+This time we'll generalize {$bx^k$}.
+\\n=1 would give us the original equation, {$bx^{k}$}
+\\n=2, we get {$b(bx^{k})^{k}$} which simplifies to {$b^{k+1}x^{k^{2}}$}
+\\n=3, we get {$b(b^{k+1}x^{k^{2}})+k$} which simplifies to {$b^{k^{2} + k + 1} x^{k^{3}}$}
+\\We can now notice the pattern. for any value {$n$}, we multiply {$x^{k^{n}}$} together with {$b$} to the power of a sum from {$n-1$} to {$0$} of {$k^{r}$}
+\\All together this comes to $$b^{\sum_{r=0}^{n-1} k^{r}} x^{k^{n}}$$
+\\Which simplifies to
+$$\mathscr{L}^n [bx^k] rx = b^{\frac{k^{n}-1}{k-1}}x^{k^{n}}$$
+
+\subsection{$(bx)^k$}
+
+\newpage
+\section{Non-trivial generalizations}
+
+\subsection{$\frac{1}{x+b}$}
+\begin{equation}
+    \begin{split}
+        \mathscr{L}^1 \frac{1}{x+b} rx & = \frac{1}{x+b}\\
+        \mathscr{L}^2 \frac{1}{x+b} rx & = \frac{x+b}{1+bx+b^2}\\
+        \mathscr{L}^3 \frac{1}{x+b} rx & = \frac{1+bx+b^2}{x+2b+b^2x+b^3}\\
+        \mathscr{L}^4 \frac{1}{x+b} rx & = \frac{x+2b+b^2x+b^3}{1+2bx+3b^2+b^3x+b^4}\\
+    \end{split}
+\end{equation}
+By observation, the numerator of $\mathscr{L}^n \frac{1}{x+b} rx$ is the same as the denominator of $\mathscr{L}^{n-1} \frac{1}{x+b} rx$. Given this,
+$$\mathscr{L}^{n} \frac{1}{x+b} rx = \frac{G_{n-1}(x)}{G_n(x)}$$
+Where $G_0(x) = 1$, $G_1(x) = \frac{1}{x+b}$, $G_2(x) = \frac{x+b}{1+bx+b^2}$, etc.
+
+\subsection{$x + \frac{1}{x}$}
+\begin{equation}
+    \begin{split}
+        f(x)[1] = \  \frac{x^2+1}{x}\\
+        f(x)[2] = \  \frac{x^3+2x}{x^2+1}\\
+        f(x)[3] = \  \frac{x^4+3x^2+1}{x^3+2x}\\
+        f(x)[4] = \ \frac{x^5+4x^3+3x}{x^4+3x^2+1}\\
+    \end{split}
+\end{equation}
+
+This is currently *not* generalized, though we do have some information on it.
+
+\end{document}
