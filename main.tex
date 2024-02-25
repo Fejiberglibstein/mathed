@@ -49,7 +49,7 @@ $$\iterator{\infty} [\frac{1}{2}x - 1] lx = -2$$
 
 \subsubsection{Iterations}
 Iterations (solutions of Iterators) are written using an evaluation bar. Ex:
-$$\iterator{n}f(x)\bigg|_{x=0}$$
+$$\iterator{n}f(x)lx\bigg|_{x=0}$$
 
 \subsection{Shorthand}
 For the sake of brevity, Iterators of the function $f(x)$ may be notated as
@@ -95,27 +95,41 @@ $$\iterator{n} \, (x+k) \, lx = x+nk$$.
 \\
 
 \subsection{$bx+k$}
-Let's go one step further and generalize {$bx+k$}.
-\\This time we'll do this without substitution, to see the variables more clearly.
-\\n=1 would give us the original equation, {$bx+k$}
-\\n=2, we plug {$bx+k$} inside itself and get {$b(bx+k)+k$} which simplifies to {$xb^{2}+kb+k$}
-\\n=3, we repeat this and get {$b(xb^{2}+kb+k)+k$} which simplifies to {$xb^{3} + kb^{2} + kb + k$}
-\\We can now notice the pattern. for any value {$n$}, we add {$xb^{n}$} and a descending sum from n-1 to 0 of {$kb^{r}$}
-\\All together this comes to $$xb^{n}+\sum_{r=0}^{n-1} kb^{r}$$
-\\Which simplifies to
+Generalizing {$f(x) = bx+k$} is as follows.
+\begin{align*}
+    f(x)[1] &= bx + k             &= xb^{1}+kb^{0} \\
+    f(x)[2] &= b(bx + k) + k       &= xb^{2}+kb^{1}+kb^{0} \\
+    f(x)[3] &= b(b(bx + k) + k) + k &= xb^{3} + kb^{2} + kb^{1} + kb^{0} \\
+       \dots \\
+    f(x)[n] &= xb^{n}+\sum_{r=0}^{n-1} kb^{r}  &= \frac{k(b^{n}-1)}{b-1}+b^{n}x
+\end{align*}
+\\
+The pattern $f(x)[n]$ can be observed and generalized, therefore
 $$\iterator{n} [bx+k] rx = \frac{k(b^{n}-1)}{b-1}+b^{n}x$$
 
 \subsection{$bx^k$}
-This time we'll generalize {$bx^k$}.
-\\n=1 would give us the original equation, {$bx^{k}$}
-\\n=2, we get {$b(bx^{k})^{k}$} which simplifies to {$b^{k+1}x^{k^{2}}$}
-\\n=3, we get {$b(b^{k+1}x^{k^{2}})+k$} which simplifies to {$b^{k^{2} + k + 1} x^{k^{3}}$}
-\\We can now notice the pattern. for any value {$n$}, we multiply {$x^{k^{n}}$} together with {$b$} to the power of a sum from {$n-1$} to {$0$} of {$k^{r}$}
-\\All together this comes to $$b^{\sum_{r=0}^{n-1} k^{r}} x^{k^{n}}$$
-\\Which simplifies to
+Generalizing {$f(x) = bx^{k}$} is as follows.
+\begin{align*}
+    f(x)[1] &= bx^{k}             &= b^{1}x^{k} \\
+    f(x)[2] &= b(bx^{k}) ^{k}       &= b^{k+1}x^{k^{2}} \\
+    f(x)[3] &= b(b(bx^{k})^{k})^{k} &= b^{k^{2} + k + 1} x^{k^{3}} \\
+       \dots \\
+    f(x)[n] &= b^{\sum_{r=0}^{n-1} k^{r}} x^{k^{n}}  &= b^{\frac{k^{n}-1}{k-1}}x^{k^{n}}
+\end{align*}
+\\The pattern can be observed and generalized to
 $$\iterator{n} [bx^k] rx = b^{\frac{k^{n}-1}{k-1}}x^{k^{n}}$$
 
 \subsection{$(bx)^k$}
+Generalizing {$f(x) = (bx)^{k}$} is quite similar to {$f(x) = bx^k$}
+\begin{align*}
+    f(x)[1] &= (bx)^{k}             &= b^{k}x^{k} \\
+    f(x)[2] &= (b(bx)^{k})^{k}       &= b^{k^{2}+k}x^{k^{2}} \\
+    f(x)[3] &= (b(b(bx)^{k})^{k})^{k} &= b^{k^{3} + k^{2} + k} x^{k^{3}} \\
+       \dots \\
+    f(x)[n] &= b^{\sum_{r=1}^{n} k^{r}} x^{k^{n}}  &= b^{\frac{k(k^{n}-1)}{k-1}}x^{k^{n}}
+\end{align*}
+\\The pattern can be observed and generalized to
+$$\iterator{n} [(bx)^k] rx = b^{\frac{k(k^{n}-1)}{k-1}}x^{k^{n}}$$
 
 \newpage
 \section{Non-trivial generalizations}
@@ -171,16 +185,32 @@ Taking this as well as the other patterns of $G_n(x)$ into account, $G_n(x)$ is 
 $$G_n(x) = \sum_{t=0}^{n}\frac{\Gamma[\frac{1}{2}n+\frac{1}{2}t+\frac{1}{4}\cos[\pi n+\pi t]+\frac{3}{4}]}{\Gamma[t+1]\cdot \Gamma[\frac{1}{2}n-\frac{1}{2}t+\frac{1}{4}\cos[\pi n-\pi t]+\frac{3}{4}]}b^{t}x^{\frac{1}{2}-\frac{1}{2}\cos(\pi n+\pi t)}$$
 
 \subsection{$x + \frac{1}{x}$}
-This is not correct at all Lol Lol!
 \begin{equation}
     \begin{split}
-        f(x)[1] & = \  \frac{x^2+1}{x}\\
-        f(x)[2] & = \  \frac{x^3+2x}{x^2+1}\\
-        f(x)[3] & = \  \frac{x^4+3x^2+1}{x^3+2x}\\
-        f(x)[4] & = \ \frac{x^5+4x^3+3x}{x^4+3x^2+1}\\
+        f(x)[1] & = \  \frac{x^2+x^{0}}{x^{1}}\\
+        f(x)[2] & = \  \frac{x^{4} + 3 x^{2} + x^{0}}{x^{3} + 1x^{1}}\\
+        f(x)[3] & = \  \frac{1x^{8}+7x^{6}+13x^{4}+7x^{2}+1x^{0}}{x^{7}+4x^{5}+4x^{3}+ 1x^{1}}\\
     \end{split}
 \end{equation}
 
 This is currently *not* generalized, though we do have some information on it.
+
+\section{Other interesting generalizations}
+
+\subsection{Oscillators}
+\subsubsection{$\sqrt{k^2-x^2}$}
+The iterator for $\iterator{n} \, \sqrt{k^2-x^2} \, lx$ will oscillate between $\sqrt{k^2-x^2}$ on odd values of n and $\sqrt{x^2}$ on even values of n. The proof for this is as follows:
+\paragraph{}
+Assume that the domain of $f(x)$ is limited to $(-k, k)$
+\begin{align*}
+        f(x) &= \sqrt{k^2 - x^2} \\
+        f(f(x)) &= \sqrt{k^2 - \Big( \sqrt{k^2-x^2} \Big)^2} \\
+                &= \sqrt{k^2 - (k^2-x^2) } \quad | -k < x < k \\
+                &= \sqrt{x^2} \quad | -k < x < k \\
+        f(f(f(x))) &= \sqrt{k^2 - (\sqrt{x^2})^2} \quad | -k < x < k \\
+                   &= \sqrt{k^2 - x^2} \quad | -k < x < k \\ 
+\end{align*}
+Since the domain of $f(x)$ was initially limited to $(-k, k)$, then the domains match. Therefore, $f(x) = f(f(f(x)))$.
+
 
 \end{document}
