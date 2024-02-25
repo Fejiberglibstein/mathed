@@ -18,7 +18,7 @@
 \maketitle
 
 \begin{abstract}
-    Defining distinct notation for and finding generalizations of the iterations of certain functions.
+    Defining distinct notation for and finding generalizations of the iterators of certain functions.
 \end{abstract}
 
 \tableofcontents
@@ -27,13 +27,13 @@
 \section{Introduction}
 Functions can be \textit{Iterated} by plugging them into themselves. For example, $f(x)$ iterated once is $f\big(f(x)\big)$. 
 \\
-The \textit{Iterator} of a function, $f(x)$, is a function $s(n)$ such that plugging in any value of $n$ is equal to the $n$th iteration of $f(x)$
+The \textit{Iterator} of a function, $f(x)$, is a function $l(n)$ such that plugging in any value of $n$ is equal to the $n$th iteration of $f(x)$
 
 
 \section{Notation}
 
 An \textit{Iterator} is a generalized equation for iterating a function $n$ times.
-An \textit{Iteration} is a solution to an iterator at a specific $n$ value.
+An \textit{Iteration} is a solution to an iterator at a specific $x$ and $n$ value.
 
 \subsection{$\iterator{}$ notation}
 In L notation, Iterators are notated as
@@ -59,6 +59,14 @@ $$(2x-1)[3] = 8x-7$$
 This notation does not extend to Iterations of functions.
 
 \section{Rules of iteration}
+
+\subsection{Identity Rule}
+For the identity function $f(x) = x$, 
+\[
+\iterator{n} \, x \, lx = x
+\]
+This is known as the identity 
+
 ignore this for now until we find some actually useful rules
 $$\iterator{n_1}[\iterator{n_2} f(x) lx] lx = \iterator{n_1\cdot n_2} f(x) lx$$
 $$f(f(x)[n_1])[n_2] = f(x)[n_1+n_2]$$
@@ -115,14 +123,15 @@ $$\iterator{n} [bx^k] rx = b^{\frac{k^{n}-1}{k-1}}x^{k^{n}}$$
 \subsection{$\frac{1}{x+b}$}
 \begin{equation}
     \begin{split}
-        \iterator{1} \frac{1}{x+b} rx & = \frac{1}{x+b}\\
-        \iterator{2} \frac{1}{x+b} rx & = \frac{x+b}{1+bx+b^2}\\
-        \iterator{3} \frac{1}{x+b} rx & = \frac{1+bx+b^2}{x+2b+b^2x+b^3}\\
-        \iterator{4} \frac{1}{x+b} rx & = \frac{x+2b+b^2x+b^3}{1+2bx+3b^2+b^3x+b^4}\\
+        \iterator{1} \frac{1}{x+b} lx & = \frac{1}{x+b}\\
+        \iterator{2} \frac{1}{x+b} lx & = \frac{x+b}{1+bx+b^2}\\
+        \iterator{3} \frac{1}{x+b} lx & = \frac{1+bx+b^2}{x+2b+b^2x+b^3}\\
+        \iterator{4} \frac{1}{x+b} lx & = \frac{x+2b+b^2x+b^3}{1+2bx+3b^2+b^3x+b^4}\\
+        \dots
     \end{split}
 \end{equation}
-By observation, the numerator of $\mathscr{L}^n \frac{1}{x+b} rx$ is the same as the denominator of $\mathscr{L}^{n-1} \frac{1}{x+b} rx$. Given this,
-$$\mathscr{L}^{n} \frac{1}{x+b} rx = \frac{G_{n-1}(x)}{G_n(x)}$$
+By observation, the numerator of $\iterator{n} \frac{1}{x+b} lx$ is the same as the denominator of $\iterator{n-1} \frac{1}{x+b} lx$. Given this,
+$$\iterator{n} \frac{1}{x+b} lx = \frac{G_{n-1}(x)}{G_n(x)}$$
 Where
 \begin{equation}
     \begin{split}
@@ -132,10 +141,37 @@ Where
         G_3(x) & = x+2b+b^2x+b^3\\
         G_4(x) & = 1+2bx+3b^2+b^3x+b^4\\
         G_5(x) & = x+3b+3b^2x+4b^3+b^4x+b^5\\
+        \dots 
     \end{split}
 \end{equation}
+In the function $G_n(x)$, the amount of terms is equal to $n+1$. In each subsequent term, the power of which $b$ is raised to increases by one, starting at $0$. The $b$ component of a term $t$ of $G_n(x)$ can be written as
+$$b^t$$
+$x$ is present on terms with odd powers of $b$ when $n$ is even, and even powers of $b$ when $n$ is odd. The $x$ component of a term $t$ of $G_n(x)$ can be written as
+$$x^{\frac{1}{2}-\frac{1}{2}(-1)^{n+t}}$$
+for integer values of $n$, or more generally,
+$$x^{\frac{1}{2}-\frac{1}{2}\cos(\pi n+\pi t)}$$
+Finally, the coefficients of the terms of $G_n(x)$ follow a discernible pattern.
+\begin{equation}
+    \begin{split}
+        G_0 & : 1\\
+        G_1 & : 1, 1\\
+        G_2 & : 1, 1, 1\\
+        G_3 & : 1, 2, 1, 1\\
+        G_4 & : 1, 2, 3, 1, 1\\
+        G_5 & : 1, 3, 3, 4, 1, 1\\
+        G_6 & : 1, 3, 6, 4, 5, 1, 1\\
+        \dots
+    \end{split}
+\end{equation}
+The coefficient of term $t$ of $G_n(x)$ will follow the formula
+$$\frac{\Gamma \left \lfloor \frac{n+t}{2} +1\right \rfloor}{\Gamma [t+1] \cdot \Gamma \left \lfloor \frac{n-t}{2} +1\right \rfloor}$$
+where $\Gamma (z)$ is the Gamma function\footnote{See https://en.wikipedia.org/wiki/Gamma\_function}, or $(z-1)!$. The floor function can also be generalized, resulting in this expression for the coefficient of term $t$
+$$\frac{\Gamma[\frac{1}{2}n+\frac{1}{2}t+\frac{1}{4}\cos[\pi n+\pi t]+\frac{3}{4}]}{\Gamma[t+1]\cdot \Gamma[\frac{1}{2}n-\frac{1}{2}t+\frac{1}{4}\cos[\pi n-\pi t]+\frac{3}{4}]}$$
+Taking this as well as the other patterns of $G_n(x)$ into account, $G_n(x)$ is defined as
+$$G_n(x) = \sum_{t=0}^{n}\frac{\Gamma[\frac{1}{2}n+\frac{1}{2}t+\frac{1}{4}\cos[\pi n+\pi t]+\frac{3}{4}]}{\Gamma[t+1]\cdot \Gamma[\frac{1}{2}n-\frac{1}{2}t+\frac{1}{4}\cos[\pi n-\pi t]+\frac{3}{4}]}b^{t}x^{\frac{1}{2}-\frac{1}{2}\cos(\pi n+\pi t)}$$
 
 \subsection{$x + \frac{1}{x}$}
+This is not correct at all Lol Lol!
 \begin{equation}
     \begin{split}
         f(x)[1] & = \  \frac{x^2+1}{x}\\
