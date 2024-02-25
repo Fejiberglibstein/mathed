@@ -8,7 +8,7 @@
 \usepackage{mathrsfs}  % For cursive L
 
 \title{Iteration of Functions}
-\author{emeryllium, LooserRIP, Fejiberglibstein}
+\author{Emeryllium, LooserRIP, Fejiberglibstein}
 \date{February 2024}
 
 \input{macros} % import macros to use
@@ -22,20 +22,24 @@
 \end{abstract}
 
 \tableofcontents
-
 \newpage
 
 \section{Introduction}
-Functions can be "iterated" by plugging them into themselves. For example, $f(x)$ iterated is $f(f(x))$. This definition can be extended to find the Iterator of a function, which denotes how many times that function is iterated.
+Functions can be \textit{Iterated} by plugging them into themselves. For example, $f(x)$ iterated once is $f\big(f(x)\big)$. 
+\\
+The \textit{Iterator} of a function, $f(x)$, is a function $s(n)$ such that plugging in any value of $n$ is equal to the $n$th iteration of $f(x)$
+
 
 \section{Notation}
-An Iterator is a generalized equation for iterating a function $n$ times. An Iteration is a solution to an iterator given specific $x$ and $n$ values.
+
+An \textit{Iterator} is a generalized equation for iterating a function $n$ times.
+An \textit{Iteration} is a solution to an iterator at a specific $n$ value.
 
 \subsection{$\iterator{}$ notation}
 In L notation, Iterators are notated as
     \footnote{Iterators can be notated with or without brackets around the function. Standard procedure is to use brackets if the expression contains multiple terms. If no $n$ value is written, assume $n=2$.}
 
-$$ \iterator{n} f(x) lx$$
+$$ \iterator{n} \, f(x) \, lx$$
 where $n$ is the iteration variable, $f(x)$ is the function to iterate, and $lx$ is the variable with respect to which you iterate. For example, $\iterator{n} [2x+b] lx$
 iterates with respect to $x$, not $b$, so $\iterator{3} [2x+b] lx$ would evaluate to $8x+7b$.
 
@@ -70,19 +74,17 @@ $$\iterator{n} \, x \, lx = x$$
 This is known as the \textit{Identity rule}.
 
 \subsection{$x+k$}
-Perhaps the simplest actual function, x+k is pretty simple to work out, let's imagine k = 2.
+The generalization of the function $f(x) = x+k$ is also trivial.
+\begin{align*}
+    f(x)[1] &= x + k             &= x + 1k \\
+    f(x)[2] &= (x + k) + k       &= x + 2k \\
+    f(x)[3] &= ((x + k) + k) + k &= x + 3k \\
+       \dots \\
+    f(x)[n] &= x + \sum_{i=0}^n k  &= x + nk \\
+\end{align*}
+The pattern $f(x)[n] = x + nk$ can easily be observed. Therefore,
+$$\iterator{n} \, (x+k) \, lx = x+nk$$.
 \\
-n=1 (the original equation), would be {$(x+2)$}
-\\
-n=2 (the first iteration) would be {$(x+2)+2$}, which is {$x+4$}
-\\
-n=3 (the second iteration) would be {$((x+2)+2)+2$}, which is {$x+6$}
-\\
-\\
-and quickly we already got the pattern, $\iterator{n} [x+2] lx = x+2n$.
-\\
-substituting 2 for k, we'll get
-$$\iterator{n} [x+k] lx = x+kn$$
 
 \subsection{$bx+k$}
 Let's go one step further and generalize {$bx+k$}.
@@ -121,7 +123,17 @@ $$\iterator{n} [bx^k] rx = b^{\frac{k^{n}-1}{k-1}}x^{k^{n}}$$
 \end{equation}
 By observation, the numerator of $\mathscr{L}^n \frac{1}{x+b} rx$ is the same as the denominator of $\mathscr{L}^{n-1} \frac{1}{x+b} rx$. Given this,
 $$\mathscr{L}^{n} \frac{1}{x+b} rx = \frac{G_{n-1}(x)}{G_n(x)}$$
-Where $G_0(x) = 1$, $G_1(x) = {x+b}$, $G_2(x) = 1+bx+b^2$, etc.
+Where
+\begin{equation}
+    \begin{split}
+        G_0(x) & = 1\\
+        G_1(x) & = x+b\\
+        G_2(x) & = 1+bx+b^2\\
+        G_3(x) & = x+2b+b^2x+b^3\\
+        G_4(x) & = 1+2bx+3b^2+b^3x+b^4\\
+        G_5(x) & = x+3b+3b^2x+4b^3+b^4x+b^5\\
+    \end{split}
+\end{equation}
 
 \subsection{$x + \frac{1}{x}$}
 \begin{equation}
