@@ -45,7 +45,7 @@ iterates with respect to $x$, not $b$, so the iteration $\iterator{3} [2x+b] lx$
 \subsubsection{Solutions}
 The solution of an Iteration at a specific $x$ value is written using an evaluation bar. Ex:
 $$\iterator{5}[x^2-5]lx\bigg|_{x=0}$$
-Solutions of an Iterator at a specific $x$ value but variable $n$ value is also written using an evaluation bar.
+The solutions of an Iterator at a specific $x$ value but variable $n$ value are also written using an evaluation bar.
 $$\iterator{n}[x^2-\frac{1}{2}]lx\bigg|_{x=0}$$
 
 \subsubsection{At infinity}
@@ -53,13 +53,19 @@ An $n$ value of $\pm\infty$ is allowed and may even result in a finite solution.
 $$\iterator{\infty} [\frac{1}{2}x - 1] lx = -2$$
 
 \subsection{Shorthand}
-For the sake of brevity, Iterators of the function $f(x)$ may be notated as
+For the sake of brevity in this paper, Iterators of the function $f(x)$ may be notated as
 $$f(x)[n]$$ 
 where $n$ is the number of iterations. For example, $f(x)[3]$ evaluates to $f(f(f(x)))$. $f(x)$ can be replaced with an expression if the expression contains only one variable. Ex:
 $$(2x-1)[3] = 8x-7$$
-This notation does not extend to Iterations of functions.
+
+\subsection{Preexisting notations}
+Some notations for iterating a function already exist, such as $f^n(x)$. However, these are often ambiguous or lacking in some other way.
 
 \section{Rules of iteration}
+
+\subsection{0th Iteration Rule}
+The 0th iteration of a function $f(x)$ always evaluates to $x$.
+$$\iterator{0}f(x)lx = x$$
 
 \subsection{Identity Rule}
 For the identity function $f(x) = x$, 
@@ -68,19 +74,14 @@ For the identity function $f(x) = x$,
 \]
 This is known as the identity rule.
 
-ignore this for now until we find some actually useful rules
-$$\iterator{n_1}[\iterator{n_2} f(x) lx] lx = \iterator{n_1\cdot n_2} f(x) lx$$
-$$f(f(x)[n_1])[n_2] = f(x)[n_1+n_2]$$
-
 \subsection{Inverse Rule}
-For any function f(x), if invertible at a domain, negative integer iterations will be positive integer iterations of the function's inverse, like so:
+The $-n$th Iteration of a function $f(x)$ will be equal to the $n$th iteration of the function's inverse.
+\footnote{A negative Iteration of a function is only defined for values within the function's range. Ex:$$\iterator{-1} \, floor(x) \, lx = \text{undefined when $x$ is not an integer}$$}
+Ex:
 \[
-\iterator{-n} \, f(x) \, lx = \iterator{n} \, f^{-1}(x) \, lx
+\iterator{-n} \, \tan(x) \, lx = \iterator{n} \, \arctan(x) \, lx
 \]
-If the function is not invertible at a domain, negative integer iterations will be undefined for that domain. For example,
-$$\iterator{-n} \, floor(x) \, lx = \text{undefined when $x$ is is not a whole number}$$
-
-
+\newpage
 \section{Trivial generalizations}
 Any function composed of one or two adjacent hyperoperations\footnote{See https://en.wikipedia.org/wiki/Hyperoperation.} (Ex. Addition and Multiplication) can be solved trivially.
 
@@ -171,9 +172,7 @@ Where
 In the function $G_n(x)$, the amount of terms is equal to $n+1$. In each subsequent term, the power of which $b$ is raised to increases by one, starting at $0$. The $b$ component of a term $t$ of $G_n(x)$ can be written as
 $$b^t$$
 $x$ is present on terms with odd powers of $b$ when $n$ is even, and even powers of $b$ when $n$ is odd. The $x$ component of a term $t$ of $G_n(x)$ can be written as
-$$x^{\frac{1}{2}-\frac{1}{2}(-1)^{n+t}}$$
-for integer values of $n$, or more generally,
-$$x^{\frac{1}{2}-\frac{1}{2}\cos(\pi n+\pi t)}$$
+$$x^{\frac{1-(-1)^{n+t}}{2}}$$
 Finally, the coefficients of the terms of $G_n(x)$ follow a discernible pattern.
 \begin{equation}
     \begin{split}
@@ -189,10 +188,9 @@ Finally, the coefficients of the terms of $G_n(x)$ follow a discernible pattern.
 \end{equation}
 The coefficient of term $t$ of $G_n(x)$ will follow the formula
 $$\frac{\Gamma \left \lfloor \frac{n+t}{2} +1\right \rfloor}{\Gamma [t+1] \cdot \Gamma \left \lfloor \frac{n-t}{2} +1\right \rfloor}$$
-where $\Gamma (z)$ is the Gamma function\footnote{See https://en.wikipedia.org/wiki/Gamma\_function}, or $(z-1)!$. The floor function can also be generalized, resulting in this expression for the coefficient of term $t$
-$$\frac{\Gamma[\frac{1}{2}n+\frac{1}{2}t+\frac{1}{4}\cos[\pi n+\pi t]+\frac{3}{4}]}{\Gamma[t+1]\cdot \Gamma[\frac{1}{2}n-\frac{1}{2}t+\frac{1}{4}\cos[\pi n-\pi t]+\frac{3}{4}]}$$
+where $\Gamma (z)$ is the Gamma function\footnote{See https://en.wikipedia.org/wiki/Gamma\_function}, or $(z-1)!$.
 Taking this as well as the other patterns of $G_n(x)$ into account, $G_n(x)$ is defined as
-$$G_n(x) = \sum_{t=0}^{n}\frac{\Gamma[\frac{1}{2}n+\frac{1}{2}t+\frac{1}{4}\cos[\pi n+\pi t]+\frac{3}{4}]}{\Gamma[t+1]\cdot \Gamma[\frac{1}{2}n-\frac{1}{2}t+\frac{1}{4}\cos[\pi n-\pi t]+\frac{3}{4}]}b^{t}x^{\frac{1}{2}-\frac{1}{2}\cos(\pi n+\pi t)}$$
+$$G_n(x) = \sum_{t=0}^{n}\frac{\Gamma \left \lfloor \frac{n+i}{2}+1 \right \rfloor}{\Gamma[t+1]\cdot \Gamma \left \lfloor \frac{n-i}{2}+1 \right \rfloor}b^{t}x^{\frac{1-(-1)^{n+t}}{2}}$$
 
 \subsection{$x + \frac{1}{x}$}
 \begin{equation}
