@@ -169,28 +169,24 @@ Where
         \dots 
     \end{split}
 \end{equation}
-In the function $G_n(x)$, the amount of terms is equal to $n+1$. In each subsequent term, the power of which $b$ is raised to increases by one, starting at $0$. The $b$ component of a term $t$ of $G_n(x)$ can be written as
-$$b^t$$
-$x$ is present on terms with odd powers of $b$ when $n$ is even, and even powers of $b$ when $n$ is odd. The $x$ component of a term $t$ of $G_n(x)$ can be written as
-$$x^{\frac{1-(-1)^{n+t}}{2}}$$
-Finally, the coefficients of the terms of $G_n(x)$ follow a discernible pattern.
+$G_n(x)$ can be broken into an odd and even function (for odd and even values of $n$, respectively). In the odd function, $x$ is present in even numbered terms. In the even function, $x$ is present in odd numbered terms. In both functions, $b^t$, where $t$ is the term index, is present on all terms. The constant coefficient of each term follows the formula 
+$$\binom{\frac{1}{2}n+\frac{1}{2}t}{t}$$
+where $\binom{p_1}{p_2}$ is the binomial function\footnote{https://en.wikipedia.org/wiki/Binomial\_distribution}, $n$ is the iteration number, and $t$ is the term index. $G_n(x)$ for odd values of $n$ is defined as
+$$G_n(x) = x\sum^\frac{n}{2}_{t=0}b^{2i}\binom{\frac{n-1}{2}+i}{2i}+\sum^\frac{n}{2}_{i=0}b^{2i+1}\binom{\frac{n+1}{2}+i}{2i+1}$$
+$G_n(x)$ for even values of $n$ is defined as
+$$G_n(x) = x\sum^\frac{n}{2}_{t=1}b^{2i-1}\binom{\frac{n-2}{2}+i}{2i-1}+\sum^\frac{n}{2}_{t=0}b^{2i}\binom{\frac{n}{2}+i}{2i}$$
+Using $\iterator{n} \frac{1}{x+b} lx = \frac{G_{n-1}(x)}{G_n(x)}$, it is possible to define two different functions for odd and even values of $n$.
 \begin{equation}
     \begin{split}
-        G_0 & : 1\\
-        G_1 & : 1, 1\\
-        G_2 & : 1, 1, 1\\
-        G_3 & : 1, 2, 1, 1\\
-        G_4 & : 1, 2, 3, 1, 1\\
-        G_5 & : 1, 3, 3, 4, 1, 1\\
-        G_6 & : 1, 3, 6, 4, 5, 1, 1\\
-        \dots
+        &\text{let } u = b+\sqrt{b^2+4}\\
+        \\
+        &\text{for even values of }n\text{,}\\
+        \iterator{n}\frac{1}{x+b}lx & = 2u\frac{u^{2n-1}(2x+u)-2^{2n-1}(2-xu)}{u^{2n+1}(2x+u)+2^{2n+1}(2-xu)}\\
+        \\
+        &\text{for odd values of }n\text{,}\\
+        \iterator{n}\frac{1}{x+b}lx & = 2u\frac{u^{2n-1}(2x+u)+2^{2n-1}(2-xu)}{u^{2n+1}(2x+u)-2^{2n+1}(2-xu)}\\
     \end{split}
 \end{equation}
-The coefficient of term $t$ of $G_n(x)$ will follow the formula
-$$\frac{\Gamma \left \lfloor \frac{n+t}{2} +1\right \rfloor}{\Gamma [t+1] \cdot \Gamma \left \lfloor \frac{n-t}{2} +1\right \rfloor}$$
-where $\Gamma (z)$ is the Gamma function\footnote{See https://en.wikipedia.org/wiki/Gamma\_function}, or $(z-1)!$.
-Taking this as well as the other patterns of $G_n(x)$ into account, $G_n(x)$ is defined as
-$$G_n(x) = \sum_{t=0}^{n}\frac{\Gamma \left \lfloor \frac{n+i}{2}+1 \right \rfloor}{\Gamma[t+1]\cdot \Gamma \left \lfloor \frac{n-i}{2}+1 \right \rfloor}b^{t}x^{\frac{1-(-1)^{n+t}}{2}}$$
 
 \subsection{$x + \frac{1}{x}$}
 \begin{equation}
