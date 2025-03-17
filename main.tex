@@ -6,6 +6,585 @@
 \usepackage{geometry} % For changing document size
 
 \usepackage{mathrsfs}  % For cursive L
+\documentclass[12pt, letterpaper]{article}
+
+%%%%%%%%%%%%%%%%%
+% Math Packages
+%%%%%%%%%%%%%%%%%
+\usepackage{cancel} % cancel termns
+\usepackage{amsmath} % Math package
+\usepackage{amsfonts} % Math fonts
+\usepackage{amsthm} % For proofs
+\usepackage{mathrsfs}  % For cursive L
+
+%%%%%%%%%%%%%%%%%
+% Meta
+\usepackage{graphicx} % Required for inserting images
+\usepackage{geometry} % For changing document size
+
+\title{Iteration of Functions}
+\author{Emeryllium, LooserRIP, Fejiberglibstein}
+\date{February 2024}
+
+
+\begin{document}
+\input{macros.tex} % import macros to use
+
+\maketitle
+
+\begin{abstract}
+    Defining unambiguous notation for and finding iterators of certain functions.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+
+- All relations\footnote{An Iteration of a function cannot always be assumed to be a function at $n<0$.} can be \textit{Iterated} by plugging them into themselves. For example, the function $f(x)$ iterated 2 times is $f\big(f(x)\big)$. 
+\\
+- An \textit{Iteration} of a function is derived from iterating the original function a certain number of times.
+\\
+- The \textit{Iterator} of a function gives the $n$th Iteration of the original function given some value $n$.
+
+
+\subsection{Notation}
+
+\subsubsection{$\iterator{}$ notation}
+In L notation, Iterators are notated as
+    \footnote{Iterators can be notated with or without brackets around the relation. Standard procedure is to use brackets if the expression contains multiple terms. If no $n$ value is written, assume $n=2$.}
+
+$$ \iterator{n} \, r(s) \, ls$$
+where $n$ is the number of times to iterate, $r(s)$ is the original relation, and $ls$ is the variable with respect to which you iterate. For example, $\iterator{n} [2x+b] lx$
+iterates with respect to $x$, not $b$, so the iteration $\iterator{3} [2x+b] lx$ would evaluate to $8x+7b$.
+
+\subsubsection{Solutions}
+The solution of an Iteration at a specific $x$ value is written using an evaluation bar. Ex:
+$$\iterator{5}[x^2-5]lx\bigg|_{x=0}$$
+The solutions of an Iterator at a specific $x$ value but variable $n$ value are also written using an evaluation bar.
+$$\iterator{n}[x^2-\frac{1}{2}]lx\bigg|_{x=0}$$
+
+\subsubsection{At infinity}
+An $n$ value of $\pm\infty$ is allowed and may even result in a finite solution. Ex:
+$$\iterator{\infty} [\frac{1}{2}x - 1] lx = -2$$
+
+\subsubsection{Set Notation}
+$D_1$ and $R_1$ may be used when describing the domain and range of a relation. $l$ may be used to describe the set of all possible domain and range values.
+\begin{alignat*}{3}
+    f(D_1)&=R_1\\
+    l&=D_1\cup R_1\\
+\end{alignat*}
+$D_n$ and $R_n$ may be used when describing the domain and range of the $n$th iteration of a relation.
+\begin{alignat*}{3}
+    f(x)&=\sqrt{x}-1\\
+    \iterator{}f(x)lx &= \sqrt{\sqrt{x}-1}-1\\
+    D_1 &= \mathbb{R} \ge 0\\
+    D_2 &= \mathbb{R} \ge 1\\
+\end{alignat*}
+
+\subsubsection{Shorthand}
+For the sake of brevity in this paper, Iterators of the function $f(x)$ may be notated as
+$$\iter n {f(x)}$$ 
+where $n$ is the number of iterations. For example, $\iter {3} f(x)$ evaluates to $f(f(f(x)))$. $f(x)$ can be replaced with an expression if the expression contains only one variable. Ex:
+$$\iter n {(2x-1)} = 8x-7$$
+
+Some notations for iterating a function already exist, such as $f^n(x)$. However, this becomes confusing when looking at functions such as $\sin^2(x)$, which is evaluated as $(\sin(x))^2$
+
+\newpage
+\section{Iteration Theorems \& Rules}
+
+\subsection{Function Identity Rule}
+For the identity function $f(x) = x$, 
+\[
+\iterator{n} \, f(x) \, lx = x
+\]
+
+\subsection{\textit{n} Identity Rule}
+For any function $f(x)$, 
+\[
+\iterator{0} \, f(x) \, lx = x
+\]
+
+\subsection{\textit{n + 1} Rule}
+For any function $f(x)$, 
+\[
+\iterator{n+1} \, f(x) \, lx = f(\iterator{n} \, f(x) \, lx)
+\]
+
+\subsection{Inverse Relation Theorem}
+The $-n$th Iteration of a relation $r(s)$ will be equal to the $n$th Iteration of the relation's inverse.\footnote{A negative Iteration of a function is not guaranteed to also be a function. Ex:$$\iterator{-1} \, x^2 \, lx \text{ evaluates to } \pm\sqrt{x}$$ As such, a negative Iteration of a function may be undefined for certain values of $x$.}
+\[
+\iterator{-n} \, r(s) \, ls = \iterator{n} \, r^{-1}(s) \, ls
+\]
+As such, $D_{-n} = R_n$ and $R_{-n} = D_n$.
+
+\subsection{Subset Theorem}
+The domain and range of the $n$th Iteration of a relation will be subsets of the domain and range of the $m$th Iteration of a relation where $n > m$ and $m > 0$.
+\begin{alignat*}{3}
+    D_n&\subset D_m \{n > m, m > 0\}\\
+    R_n&\subset R_m \{n > m, m > 0\}\\
+\end{alignat*}
+
+\subsection{Re-composition Theorem}
+For any functions $f(x)$ and $h(x)$,
+
+\begin{align*}
+    \iterator{n}f(h(f^{-1}(x)))lx &= f(\iterator{n}h(k)lk)\bigg|_{k=f^{-1}(x)} \\
+\end{align*}
+
+\subsection{Derivative of $\iterator{n}f(x)lx$}
+The first derivative of $\iterator{n}f(x)lx$ is defined as
+
+$$\frac{d}{dx}\iterator{n}f(x)lx = \prod^{n-1}_{i=0}f'(\iterator{i}f(x)lx)$$
+
+\begin{proof}
+    We want to prove that for all $n \ge 0, \quad \frac{d}{dx}\iterator{n} f(x) \, lx$  is true.
+
+    \paragraph{Basis step}
+    For n = 0, 
+    \begin{align*}
+        \frac{d}{dx}\iterator {0} f(x) lx &= \frac{d}{dx}(x) &
+        \prod^{n-1}_{i=0}f'(\iterator{i}f(x)lx) &= \prod^{(0)-1}_{i=0}f'(\iterator{i}f(x)lx) \\
+        &= 1 &&= 1 
+    \end{align*}
+    Therefore, $\frac{d}{dx}\iterator {0} f(x) \, lx$ is true
+
+    \paragraph{Inductive step}
+
+    We must prove that for all $k \ge 0, \quad \frac{d}{dx}\iterator{k} f(x) \, lx \to \frac{d}{dx}\iterator {k+1} f(x) \, lx$.
+
+    \paragraph{Inductive Hypotheses}
+    Assume that $\frac{d}{dx}\iterator {k} f(x) lx = \prod^{k-1}_{i=0}f'(\iterator{i}f(x)lx)$ is true for $k \ge 0$.
+    Under this assumption, we must be prove that $\frac{d}{dx}\iterator {k+1} f(x) lx = \prod^{k}_{i=0}f'(\iterator{i}f(x)lx)$ is true
+
+    \begin{align*}
+        \prod^{k}_{i=0}f'(\iterator{i}f(x)lx) &= \frac{d}{dx}\iterator {k+1} f(x) lx \\ 
+        &= \frac{d}{dx}f(\iterator {k} f(x) lx) \\ 
+        &= f'(\iterator {k} f(x) lx)\cdot \frac{d}{dx}\iterator {k} f(x) lx \\
+        &= f'(\iterator {k} f(x) lx)\cdot \prod^{k-1}_{i=0}f'(\iterator{i}f(x)lx) \\ 
+        \prod^{k}_{i=0}f'(\iterator{i}f(x)lx) &= \prod^{k}_{i=0}f'(\iterator{i}f(x)lx) \\ 
+    \end{align*}
+
+    Therefore, $\frac{d}{dx}\iterator {k+1} f(x) lx = \prod^{k}_{i=0}f'(\iterator{i}f(x)lx)$ is true
+
+    \paragraph{Conclusion} By the principle of mathematical induction, $\frac{d}{dx}\iterator {n} f(x) lx = \prod^{n-1}_{i=0}f'(\iterator{i}f(x)lx)$ is true for all $n \ge 0$.
+    
+\end{proof}
+
+\subsection{Further Derivatives}
+
+The $m$th derivative of $\iterator{n}f(x)lx$ is defined as
+\begin{alignat*}{3}
+    \frac{d^m}{dx^m}\iterator{n}f(x)lx = &\sum^{n-1}_{i=0}\left(\prod^{n-1}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_m(x)\\
+\end{alignat*}
+where $m\ge2$ and
+\begin{alignat*}{3}
+    g^i_m(x)=\frac{d}{dx}g^i_{m-1}(x)+f''(\iterator{i}f(x)lx)(\frac{d}{dx}\iterator{i}f(x)lx)(\frac{d^{m-1}}{dx^{m-1}}\iterator{i}f(x)lx)\\
+\end{alignat*}
+where
+\begin{alignat*}{3}
+    \frac{d}{dx}g^i_1(x)=0\\
+\end{alignat*}
+
+\subsubsection{\textit{2}nd Derivative} \label{2nd Derivative}
+\begin{proof}
+    We want to prove that for all $n \ge 0, \quad \frac{d^2}{dx^2}\iterator{n} f(x) \, lx$  is true.
+
+    \paragraph{Basis step}
+    For n = 0, 
+    \begin{align*}
+        \frac{d^2}{dx^2}\iterator {0} f(x) lx &= \frac{d^2}{dx^2}(x) &
+        \sum^{n-1}_{i=0}\left(\prod^{n-1}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_2(x) &= \sum^{(0)-1}_{i=0}\left(\prod^{(0)-1}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_2(x) \\
+        &= 0 &&= 0\\ 
+    \end{align*}
+    Therefore, $\frac{d^2}{dx^2}\iterator {0} f(x) \, lx$ is true
+
+    \paragraph{Inductive step}
+
+    We must prove that for all $k \ge 0, \quad \frac{d^2}{dx^2}\iterator{k} f(x) \, lx \to \frac{d^2}{dx^2}\iterator {k+1} f(x) \, lx$.
+
+    \paragraph{Inductive Hypotheses}
+    Assume that $\frac{d^2}{dx^2}\iterator {k} f(x) lx = \sum^{k-1}_{i=0}\left(\prod^{k-1}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_2(x)$ is true for $k \ge 0$.
+    Under this assumption, we must be prove that $\frac{d^2}{dx^2}\iterator {k+1} f(x) lx = \sum^{k}_{i=0}\left(\prod^{k}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_2(x)$ is true
+
+    \begin{align*}
+        &= \frac{d^2}{dx^2}\iterator {k+1} f(x) lx \\
+        &= \frac{d}{dx}\bigg(\frac{d}{dx}\iterator {k+1} f(x) lx\bigg)\\
+        &= \frac{d}{dx}\bigg(\frac{d}{dx}f(\iterator {k} f(x) lx)\bigg)\\
+        &= \frac{d}{dx}\bigg(f'(\iterator {k} f(x) lx)\cdot\frac{d}{dx}\iterator {k} f(x) lx\bigg)\\
+        &= f''(\iterator {k} f(x) lx)(\frac{d}{dx}\iterator {k} f(x) lx)^2+f'(\iterator {k} f(x) lx)\cdot\frac{d^2}{dx^2}\iterator {k} f(x) lx\\
+        &= f''(\iterator {k} f(x) lx)(\frac{d}{dx}\iterator {k} f(x) lx)^2+f'(\iterator {k} f(x) lx)\cdot\sum^{k-1}_{i=0}\left(\prod^{k-1}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_2(x)\\
+        &= f''(\iterator {k} f(x) lx)(\frac{d}{dx}\iterator {k} f(x) lx)^2+\sum^{k-1}_{i=0}\left(f'(\iterator {k} f(x) lx)\cdot\prod^{k-1}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_2(x)\\
+        &= (0) + f''(\iterator {k} f(x) lx)(\frac{d}{dx}\iterator {k} f(x) lx)^2+\sum^{k-1}_{i=0}\left(\prod^{k}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_2(x)\\
+        &= \frac{d}{dx}g^k_1(x)+ f''(\iterator {k} f(x) lx)(\frac{d}{dx}\iterator {k} f(x) lx)^2+\sum^{k-1}_{i=0}\left(\prod^{k}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_2(x)\\
+        &= (1)g^k_2(x)+\sum^{k-1}_{i=0}\left(\prod^{k}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_2(x)\\
+        &= \left(\prod^{k}_{j=k+1}f'(\iterator{j}f(x)lx)\right)g^k_2(x)+\sum^{k-1}_{i=0}\left(\prod^{k}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_2(x)\\
+        &= \sum^{k}_{i=0}\left(\prod^{k}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_2(x)\\
+    \end{align*}
+
+    Therefore, $\frac{d^2}{dx^2}\iterator {k+1} f(x) lx = \sum^{k}_{i=0}\left(\prod^{k}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_2(x)$ is true
+
+    \paragraph{Conclusion} By the principle of mathematical induction, \\$\frac{d^2}{dx^2}\iterator {n} f(x) lx = \sum^{n-1}_{i=0}\left(\prod^{n-1}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_2(x)$ is true for all $n \ge 0$.
+    
+\end{proof}
+
+\subsubsection{\textit{m}th Derivative}
+\begin{proof}
+    We want to prove that for all $m \ge 2, \quad \frac{d^m}{dx^m}\iterator{n} f(x) \, lx$  is true.
+
+    \paragraph{Basis step}
+    For n = 2, 
+    \begin{align*}
+        \frac{d^2}{dx^2}\iterator {n} f(x) lx = \sum^{n-1}_{i=0}\left(\prod^{n-1}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_2(x)\\
+    \end{align*}
+    Therefore, $\frac{d^2}{dx^2}\iterator {n} f(x) \, lx$ is true.\footnote{See \ref{2nd Derivative}}
+
+    \paragraph{Inductive step}
+
+    We must prove that for all $k \ge 2, \quad \frac{d^k}{dx^k}\iterator{n} f(x) \, lx \to \frac{d^{k+1}}{dx^{k+1}}\iterator {n} f(x) \, lx$.
+
+    \paragraph{Inductive Hypotheses}
+    Assume that $\frac{d^k}{dx^k}\iterator {n} f(x) lx = \sum^{n-1}_{i=0}\left(\prod^{n-1}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_k(x)$ is true for $k \ge 2$.
+    Under this assumption, we must be prove that $\frac{d^{k+1}}{dx^{k+1}}\iterator {n} f(x) lx = \sum^{n-1}_{i=0}\left(\prod^{n-1}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_{k+1}(x)$ is true
+
+    \begin{align*}
+        &= \frac{d^{k+1}}{dx^{k+1}}\iterator {n} f(x) lx \\
+        &= \frac{d}{dx}\left(\frac{d^{k}}{dx^{k}}\iterator {n} f(x) lx\right) \\
+        &= \frac{d}{dx}\left(\sum^{n-1}_{i=0}\bigg(\prod^{n-1}_{j=i+1}f'(\iterator{j}f(x)lx)\bigg)g^i_k(x)\right) \\
+        &= \sum^{n-1}_{i=0}\frac{d}{dx}\left(\bigg(\prod^{n-1}_{j=i+1}f'(\iterator{j}f(x)lx)\bigg)g^i_k(x)\right) \\
+        &= \sum^{n-1}_{i=0}\left(\frac{d}{dx}\bigg(\prod^{n-1}_{j=i+1}f'(\iterator{j}f(x)lx)\bigg)\cdot g^i_k(x)+\bigg(\prod^{n-1}_{j=i+1}f'(\iterator{j}f(x)lx)\bigg)\cdot \frac{d}{dx}g^i_k(x)\right) \\
+        &= \sum^{n-1}_{i=0}\left(\bigg(\prod^{n-1}_{j=i+1}f'(\iterator{j}f(x)lx)\bigg)\bigg(\sum^{n-1}_{j=i+1}\frac{\frac{d}{dx}f'(\iterator{j}f(x)lx)}{f'(\iterator{j}f(x)lx)}\bigg)\cdot g^i_k(x)+\bigg(\prod^{n-1}_{j=i+1}f'(\iterator{j}f(x)lx)\bigg)\cdot \frac{d}{dx}g^i_k(x)\right) \\
+        &= \sum^{n-1}_{i=0}\bigg(\prod^{n-1}_{j=i+1}f'(\iterator{j}f(x)lx)\bigg)\left(\bigg(\sum^{n-1}_{j=i+1}\frac{\frac{d}{dx}f'(\iterator{j}f(x)lx)}{f'(\iterator{j}f(x)lx)}\bigg)\cdot g^i_k(x)+\frac{d}{dx}g^i_k(x)\right) \\
+    \end{align*}
+
+    Therefore, $\frac{d^{k+1}}{dx^{k+1}}\iterator {n} f(x) lx = \sum^{n-1}_{i=0}\left(\prod^{n-1}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_{k+1}(x)$ is true
+
+    \paragraph{Conclusion} By the principle of mathematical induction, \\$\frac{d^m}{dx^m}\iterator {n} f(x) lx = \sum^{n-1}_{i=0}\left(\prod^{n-1}_{j=i+1}f'(\iterator{j}f(x)lx)\right)g^i_m(x)$ is true for all $m \ge 2$.
+    
+\end{proof}
+\newpage
+
+\section{Trivial generalizations}
+Any function composed of one or two adjacent hyperoperations\footnote{See https://en.wikipedia.org/wiki/Hyperoperation.} (Ex. Addition and Multiplication) can be solved trivially.
+
+\subsection{$x$}
+In the identity function \(f(x) = x\), every iteration of \(x\) is \(x\). 
+\\
+Therefore
+$$\iterator{n} \, x \, lx = x$$
+This is known as the \textit{Identity rule}.
+
+\subsection{$x+a$}
+The iteration sequence for $f(x) = x+a$ is as follows.
+\begin{alignat*}{3}
+    \iterator {1} f(x) lx &= x + a             &= x + 1a \\
+    \iterator {2} f(x) lx &= (x + a) + a       &= x + 2a \\
+    \iterator {3} f(x) lx &= ((x + a) + a) + a &= x + 3a \\
+       \dots \\
+    \iterator {n} f(x) lx &= x + \sum_{i=0}^n a  & = x + na \\
+\end{alignat*}
+
+\begin{proof}
+    We want to prove that for all $n \ge 0, \quad \iterator{n} f(x) \, lx$  is true.
+
+    \paragraph{Basis step}
+    For n = 0, 
+    \begin{align*}
+        \iterator {0} f(x) \, lx &= x &
+        x + na &= x + (0)a \\
+        &= x &&= x 
+    \end{align*}
+    Therefore, $\iterator {0} f(x) \, lx$ is true
+
+    \paragraph{Inductive step}
+
+    We must prove that for all $k \ge 0, \quad \iterator{k} f(x) \, lx \to \iterator {k+1} f(x) \, lx$.
+
+    \paragraph{Inductive Hypotheses}
+    Assume that $\iterator {k} f(x) \, lx = x + ka$ is true for $k \ge 0$.
+    Under this assumption, we must be prove that $\iterator{k+1} f(x) \, lx = x + (k+1)a $ is true
+
+    \begin{align*}
+        x + a(k+1) &= \iterator {k+1} f(x) \, lx \\ 
+        &= \left(\iterator {k} f(x) \, lx \right) + a \\ 
+        &= \left(x + ka\right) + a \\ 
+        x + a(k+1) &= x + a(k + 1) \\ 
+    \end{align*}
+
+    Therefore, $\iterator{k+1} f(x) \, lx = x + (k+1)a $ is true 
+
+    \paragraph{Conclusion} By the principle of mathematical induction, $\iterator{n} f(x) \, lx = x+na$ is true for all $n \ge 0$.
+    
+\end{proof}
+
+
+
+
+\subsection{$ax+b$}
+The iteration sequence for {$f(x) = ax+b$} is as follows.
+\begin{align*}
+    \iterator {1} f(x) &= ax + b               &= xa^{1}+ba^{0} \\ 
+    \iterator {2} f(x) &= a(ax + b) + b        &= xa^{2}+ba^{1}+ba^{0} \\
+    \iterator {3} f(x) &= a(a(ax + b) + b) + b &= xa^{3} + ba^{2} + ba^{1} + ba^{0} \\
+       \dots \\
+    \iterator {n} f(x) &= xa^{n}+\sum_{r=0}^{n-1} ba^{r}  &= \frac{b(a^{n}-1)}{a-1}+a^{n}x
+\end{align*}
+\begin{proof}
+    We want to prove that for all $n \ge 0, \quad \iterator{n} f(x) \, lx$  is true.
+
+    \paragraph{Basis step}
+    For n = 0, 
+    
+    \begin{align*}
+        \iterator {0} f(x) \, lx &= x
+        &\frac{b(a^n - 1)}{a-1} + a^n x &= \frac{b (a^0-1)}{a-1} + a^0 x \\
+        &= x &&= \frac{b (1-1)}{a-1} + x \\
+        &= x &&= x
+    \end{align*}
+        
+    Therefore, $\iterator {0} f(x) \, lx$ is true
+
+    \paragraph{Inductive step}
+
+    We must prove that for all $k \ge 0, \quad \iterator{k} f(x) \, lx \to \iterator {k+1} f(x) \, lx$.
+
+    \paragraph{Inductive Hypotheses}
+    Assume that $\iterator {k} f(x) \, lx = \frac{b(a^k - 1)}{a-1} + a^k x$ is true for $k \ge 0$.
+    Under this assumption, we must be prove that $\iterator{k+1} f(x) \, lx = \frac{b(a^{k+1} - 1)}{a-1} + a^{k+1} x$ is true
+
+    \begin{align*}
+        \frac{b(a^{k+1} - 1)}{a-1} + a^{k+1} x &= \iterator {k+1} f(x) \, lx \\ 
+        &= a\left(\iterator {k} f(x) \, lx\right) + b \\ 
+        &= a\left(\frac{b(a^k - 1)}{a-1} + a^k x \right) + b \\ 
+        &= \frac{b(a^{k+1} - a)}{a-1} + a^{k+1} x  + b \\ 
+% 
+        &= \frac{b(a^{k+1} - a)}{a-1} + \frac{b(a-1)}{a-1} + a^{k+1} x  \\ 
+% 
+        &= \frac{b(a^{k+1} - a) + b(a-1)}{a-1} + a^{k+1} x  \\ 
+% 
+        &= \frac{b\left((a^{k+1} - a) + (a-1)\right)}{a-1} + a^{k+1} x  \\ 
+% 
+        \frac{b(a^{k+1} - 1)}{a-1} + a^{k+1} x &=
+        \frac{b(a^{k+1} - 1)}{a-1} + a^{k+1} x  \\ 
+    \end{align*}
+
+    Therefore, $\iterator{k+1} f(x) \, lx = \frac{b(a^{k+1} - 1)}{a-1} + a^{k+1} x$ is true 
+
+    \paragraph{Conclusion} By the principle of mathematical induction, we have proven that
+    $$\iterator n f(x) \, lx = \frac{b(a^n - 1)}{a-1} + a^n x \quad \text {is true for all} \qquad n \ge 0 \quad a \ne 1$$
+\end{proof}
+
+
+\subsection{$ax^b$}
+
+The iteration sequence for {$f(x) = ax^{b}$} is as follows.
+\begin{alignat*}{3}
+    \iterator {1} f(x)lx &= ax^{b}               &= a^{1}x^{b} \\
+    \iterator {2} f(x)lx &= a(ax^{b}) ^{b}       &= a^{b+1}x^{b^{2}} \\
+    \iterator {3} f(x)lx &= a(a(ax^{b})^{b})^{b} &= a^{b^{2} + b + 1} x^{b^{3}} \\
+       &\dots \\
+    \iterator {n} f(x)lx &= a^{\displaystyle \sum_{r=0}^{n-1} b^{r}}  x^{b^{n}}  &=
+    a^{\displaystyle \frac{b^{n}-1}{b-1}}x^{b^{n}}
+\end{alignat*}
+
+\begin{proof}
+    We want to prove that for all $n \ge 0, \quad \iterator{n} f(x) \, lx$  is true.
+
+    \paragraph{Basis step}
+    For n = 0, 
+    
+    \begin{align*}
+        \iterator {0} f(x) \, lx &= x &
+        a^{\displaystyle \frac{b^{n}-1}{b-1}}x^{b^{n}} &=
+        a^{\displaystyle \frac{b^0-1}{b-1}}x^{b^0} \\
+%
+        &= x &&= a^0 x^{1} \\
+        &= x &&= x \\
+    \end{align*}
+        
+    Therefore, $\iterator {0} f(x) \, lx$ is true
+
+    \paragraph{Inductive step}
+
+    We must prove that for all $k \ge 0, \quad \iterator{k} f(x) \, lx \to \iterator {k+1} f(x) \, lx$.
+
+    \paragraph{Inductive Hypotheses}
+    Assume that 
+    \begin{equation*}
+        \iterator k (ax^b) lx = a^{\displaystyle \frac{b^{k}-1}{b-1}}x^{b^{k}} 
+        \quad \text{is true for } \quad k \ge 0
+    \end{equation*}
+    
+    Under this assumption, we must be prove that 
+    $\iterator {k+1} (ax^b) lx = a^{\frac{b^{k+1}-1}{b-1}}x^{b^{k+1}}$
+    is true
+
+    \begin{align*}
+        a^{\displaystyle \frac{b^{k+1}-1}{b-1}} \cdot x^{b^{k+1}} &= 
+        \iterator {k+1} (ax^b) \,lx \\
+%
+        &=  a\left(\iterator {k} (ax^b) \,lx\right)^b \\
+        &= a\left( a^{\displaystyle \frac{b^k-1}{b-1}}  \cdot x^{b^k} \right)^b \\
+        &= a\left( a^{\displaystyle {\frac{b^k-1}{b-1}}\cdot b}  \cdot x^{b^k \cdot b} \right) \\
+        &= a^{\displaystyle {\frac{b\cdot (b^k-1)}{b-1}} + 1}  \cdot x^{b^{k+1}}  \\
+        &= a^{\displaystyle {\frac{b^{k+1}-b}{b-1}} + \frac{b-1}{b-1}} \cdot x^{b^{k+1}}  \\
+        &= a^{\displaystyle {\frac{b^{k+1}-b + b - 1}{b-1}} }  \cdot x^{b^{k+1}}  \\
+%
+        a^{\displaystyle \frac{b^{k+1}-1}{b-1} }  \cdot x^{b^{k+1}} &=
+        a^{\displaystyle \frac{b^{k+1}-1}{b-1} }  \cdot x^{b^{k+1}}  \\
+    \end{align*}
+
+    \paragraph{Conclusion} By the principle of mathematical induction, we have proven that
+    \begin{equation*}
+        \iterator n (ax^b) lx = a^{\displaystyle \frac{b^{n}-1}{b-1}}x^{b^{n}} 
+        \quad \text{is true for} \quad k \ge 0
+    \end{equation*}
+\end{proof}
+
+
+
+\newpage
+\section{Non-trivial generalizations}
+
+\subsection{$\frac{1}{x+b}$}
+\subsubsection{Discovery}
+\begin{equation}
+    \begin{split}
+        \iterator{1} \frac{1}{x+b} lx & = \frac{1}{x+b}\\
+        \iterator{2} \frac{1}{x+b} lx & = \frac{x+b}{1+bx+b^2}\\
+        \iterator{3} \frac{1}{x+b} lx & = \frac{1+bx+b^2}{x+2b+b^2x+b^3}\\
+        \iterator{4} \frac{1}{x+b} lx & = \frac{x+2b+b^2x+b^3}{1+2bx+3b^2+b^3x+b^4}\\
+        \dots
+    \end{split}
+\end{equation}
+By observation, the numerator of $\iterator{n} \frac{1}{x+b} lx$ is the same as the denominator of $\iterator{n-1} \frac{1}{x+b} lx$. Given this,
+$$\iterator{n} \frac{1}{x+b} lx = \frac{G_{n-1}(x)}{G_n(x)}$$
+Where
+\begin{equation}
+    \begin{split}
+        G_0(x) & = 1\\
+        G_1(x) & = x+b\\
+        G_2(x) & = 1+bx+b^2\\
+        G_3(x) & = x+2b+b^2x+b^3\\
+        G_4(x) & = 1+2bx+3b^2+b^3x+b^4\\
+        G_5(x) & = x+3b+3b^2x+4b^3+b^4x+b^5\\
+        \dots 
+    \end{split}
+\end{equation}
+$G_n(x)$ can be broken into an odd and even function (for odd and even values of $n$, respectively). In the odd function, $x$ is present in even numbered terms. In the even function, $x$ is present in odd numbered terms. In both functions, $b^t$, where $t$ is the term index, is present on all terms. The constant coefficient of each term follows the formula 
+$$\binom{\frac{1}{2}n+\frac{1}{2}t}{t}$$
+where $\binom{p_1}{p_2}$ is the binomial function\footnote{https://en.wikipedia.org/wiki/Binomial\_distribution}, $n$ is the iteration number, and $t$ is the term index. $G_n(x)$ for odd values of $n$ is defined as
+$$G_n(x) = x\sum^\frac{n-1}{2}_{i=0}b^{2i}\binom{\frac{n-1}{2}+i}{2i}+\sum^\frac{n-1}{2}_{i=0}b^{2i+1}\binom{\frac{n+1}{2}+i}{2i+1}$$
+$G_n(x)$ for even values of $n$ is defined as
+$$G_n(x) = x\sum^{\frac{n}{2}-1}_{i=0}b^{2i+1}\binom{\frac{n}{2}+i}{2i+1}+\sum^\frac{n}{2}_{i=0}b^{2i}\binom{\frac{n}{2}+i}{2i}$$
+Using $\iterator{n} \frac{1}{x+b} lx = \frac{G_{n-1}(x)}{G_n(x)}$, it is possible to define two different functions for odd and even values of $n$.
+\subsubsection{Definition}
+\begin{equation}
+    \begin{split}
+        &\text{let } u = b+\sqrt{b^2+4}\\
+        \\
+        &\text{for even values of }n\text{,}\\
+        \iterator{n}\frac{1}{x+b}lx & = 2u\frac{u^{2n-1}(2x+u)-2^{2n-1}(2-xu)}{u^{2n+1}(2x+u)+2^{2n+1}(2-xu)}\\
+        \\
+        &\text{for odd values of }n\text{,}\\
+        \iterator{n}\frac{1}{x+b}lx & = 2u\frac{u^{2n-1}(2x+u)+2^{2n-1}(2-xu)}{u^{2n+1}(2x+u)-2^{2n+1}(2-xu)}\\
+        \\
+        &\text{and, more generally,}\\
+        \iterator{n}\frac{1}{x+b}lx & = 2u\frac{u^{2n-1}(2x+u)-(-1)^n2^{2n-1}(2-xu)}{u^{2n+1}(2x+u)+(-1)^n2^{2n+1}(2-xu)}\\
+    \end{split}
+\end{equation}
+\subsubsection{Proof}
+uh yeah no thanks
+
+\subsection{$\frac{1}{ax+b}$}
+\subsubsection{Discovery}
+\begin{equation}
+    \begin{split}
+        \iterator{1} \frac{1}{ax+b} lx & = \frac{1}{ax+b}\\
+        \iterator{2} \frac{1}{ax+b} lx & = \frac{ax+b}{a+abx+b^2}\\
+        \iterator{3} \frac{1}{ax+b} lx & = \frac{a+abx+b^2}{a^2x+2ab+ab^2x+b^3}\\
+        \iterator{4} \frac{1}{ax+b} lx & = \frac{a^2x+2ab+ab^2x+b^3}{a^2+2a^2bx+3ab^2+ab^3x+b^4}\\
+        \dots
+    \end{split}
+\end{equation}
+Similar to $\iterator{n} \frac{1}{x+b} lx$, the numerator of $\iterator{n} \frac{1}{ax+b} lx$ is the same as the denominator of $\iterator{n-1} \frac{1}{ax+b} lx$. Given this,
+$$\iterator{n} \frac{1}{ax+b} lx = \frac{G_{n-1}(x)}{G_n(x)}$$
+Where
+\begin{equation}
+    \begin{split}
+        G_0(x) & = 1\\
+        G_1(x) & = ax+b\\
+        G_2(x) & = a+abx+b^2\\
+        G_3(x) & = a^2x+2ab+ab^2x+b^3\\
+        G_4(x) & = a^2+2a^2bx+3ab^2+ab^3x+b^4\\
+        G_5(x) & = a^3x+a^23b+3a^2b^2x+4ab^3+ab^4x+b^5\\
+        \dots 
+    \end{split}
+\end{equation}
+$G_n(x)$ can be broken into an odd and even function (for odd and even values of $n$, respectively). In the odd function, $x$ is present in even numbered terms. In the even function, $x$ is present in odd numbered terms. In both functions, $b^t$, where $t$ is the term index, is present on all terms. The term $a^{\left\lceil{\frac{n-t}{2}}\right\rceil}$ is also present on all terms. The constant coefficient of each term follows the formula 
+$$\binom{\frac{1}{2}n+\frac{1}{2}t}{t}$$
+where $\binom{p_1}{p_2}$ is the binomial function, $n$ is the iteration number, and $t$ is the term index. $G_n(x)$ for odd values of $n$ is defined as
+$$G_n(x) = x\sum^\frac{n-1}{2}_{i=0}a^{(\frac{n+1}{2}-i)}b^{2i}\binom{\frac{n-1}{2}+i}{2i}+\sum^\frac{n-1}{2}_{i=0}a^{(\frac{n-1}{2}-i)}b^{2i+1}\binom{\frac{n+1}{2}+i}{2i+1}$$
+$G_n(x)$ for even values of $n$ is defined as
+$$G_n(x) = x\sum^{\frac{n}{2}-1}_{i=0}a^{(\frac{n}{2}-i)}b^{2i+1}\binom{\frac{n}{2}+i}{2i+1}+\sum^\frac{n}{2}_{i=0}a^{(\frac{n}{2}-i)}b^{2i}\binom{\frac{n}{2}+i}{2i}$$
+Using $\iterator{n} \frac{1}{ax+b} lx = \frac{G_{n-1}(x)}{G_n(x)}$, it is possible to define two different functions for odd and even values of $n$.
+\subsubsection{Definition}
+\begin{equation}
+    \begin{split}
+        &\text{let } u = b+\sqrt{b^2+4}\\
+        \\
+        &\text{for even values of }n\text{,}\\
+        \iterator{n}\frac{1}{x+b}lx & = 2u\frac{u^{2n-1}(2x+u)-2^{2n-1}(2-xu)}{u^{2n+1}(2x+u)+2^{2n+1}(2-xu)}\\
+        \\
+        &\text{for odd values of }n\text{,}\\
+        \iterator{n}\frac{1}{x+b}lx & = 2u\frac{u^{2n-1}(2x+u)+2^{2n-1}(2-xu)}{u^{2n+1}(2x+u)-2^{2n+1}(2-xu)}\\
+        \\
+        &\text{and, more generally,}\\
+        \iterator{n}\frac{1}{x+b}lx & = 2u\frac{u^{2n-1}(2x+u)-(-1)^n2^{2n-1}(2-xu)}{u^{2n+1}(2x+u)+(-1)^n2^{2n+1}(2-xu)}\\
+    \end{split}
+\end{equation}
+
+\subsection{$x + \frac{1}{x}$}
+\begin{equation}
+    \begin{split}
+        f(x)[1] & = \  \frac{x^2+x^{0}}{x^{1}}\\
+        f(x)[2] & = \  \frac{x^{4} + 3 x^{2} + x^{0}}{x^{3} + 1x^{1}}\\
+        f(x)[3] & = \  \frac{1x^{8}+7x^{6}+13x^{4}+7x^{2}+1x^{0}}{x^{7}+4x^{5}+4x^{3}+ 1x^{1}}\\
+    \end{split}
+\end{equation}
+
+This is currently *not* generalized, though we do have some information on it.
+
+\subsection{$x^2+b$}
+\begin{align}
+        \iterator{0}[x^2+1]lx & = x\\
+        \iterator{1}[x^2+1]lx & = x^2+b\\
+        \iterator{2}[x^2+1]lx & = x^4+2bx^2+b^2+b\\
+        \iterator{3}[x^2+1]lx & = x^8+4bx^6+6b^2x^4+2bx^4+4b^3x^2+4b^2x^2+b^4+2b^3+b^2+b\\
+\end{align}
+
+$$\iterator{n}[(x+b)^2-b]lx=(x+b)^{2^n}-b$$
+
+\section{Other interesting generalizations}
+
+\subsection{Oscillators}
+\subsubsection{$\sqrt{k^2-x^2}$}
+The iterator for $\iterator{n} \, \sqrt{k^2-x^2} \, lx$ will oscillate between $\sqrt{k^2-x^2}$ on odd values of n and $\sqrt{x^2}$ on even values of n. The proof for this is as follows:
+\paragraph{}
+Assume that the domain of $f(x)$ is limited to $(-k, k)$
+\begin{align*}
+        f(x) &= \sqrt{k^2 - x^2} \\
+        f(f(x)) &= \sqrt{k^2 - \Big( \sqrt{k^2-x^2} \Big)^2} \\
+                &= \sqrt{k^2 - (k^2-x^2) } \quad | -k < x < k \\
+                &= \sqrt{x^2} \quad | -k < x < k \\
+        f(f(f(x))) &= \sqrt{k^2 - (\sqrt{x^2})^2} \quad | -k < x < k \\
+                   &= \sqrt{k^2 - x^2} \quad | -k < x < k \\ 
+\end{align*}
+Since the domain of $f(x)$ was initially limited to $(-k, k)$, then the domains match. Therefore, $f(x) = f(f(f(x)))$.
+
+
+\end{document}
 
 \title{Iteration of Functions}
 \author{Emeryllium, LooserRIP, Fejiberglibstein}
