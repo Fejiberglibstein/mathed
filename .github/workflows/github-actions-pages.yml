@@ -4,7 +4,7 @@ name: Deploy static content to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: [$default-branch]
+    branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -30,6 +30,7 @@ jobs:
       - name: Github Action for LaTeX
         uses: xu-cheng/latex-action@3.2.0
         with: 
+          working_directory: .
           root_file: |
             main.tex
             macros.tex
