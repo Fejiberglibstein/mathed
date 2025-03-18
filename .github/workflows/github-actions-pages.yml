@@ -35,7 +35,6 @@ jobs:
           working_directory: .
           root_file: |
             main.tex
-            macros.tex
 
   deploy:
     needs: build
