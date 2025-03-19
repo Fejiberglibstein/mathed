@@ -39,6 +39,7 @@ jobs:
           working_directory: .
           root_file: |
             main.tex
+          post_compile: "mv main.pdf site/"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -46,7 +47,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './main.pdf'
+          path: './site'
 
       - name: Deploy to GitHub Pages
         id: deployment
